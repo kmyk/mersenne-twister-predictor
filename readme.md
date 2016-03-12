@@ -5,7 +5,7 @@ Predict MT19937 PRNG, from preceding 624 generated numbers.
 ## usage
 
 ``` sh
-    $ cat foo | tail $[624 * 4] | ./predict.py > bar
+    $ cat foo | tail -c $[624 * 4] | ./predict.py > bar
 ```
 
 ## reference
