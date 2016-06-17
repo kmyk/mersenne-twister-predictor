@@ -26,21 +26,25 @@ def generate(mt, kk):
     mt[kk] = mt[(kk + M) % N] ^ (y >> 1) ^ mag01[y & 0x1]
 
 if __name__ == '__main__':
-    import sys
-    import struct
+    from signal import signal, SIGPIPE, SIG_DFL
+    signal(SIGPIPE,SIG_DFL)
 
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('path', nargs='?', default='-')
-    parser.add_argument('-f', '--format', default='=I')
     args = parser.parse_args()
 
     if args.path == '-':
+        import sys
         argf = sys.stdin
     else:
         argf = open(args.path)
-    get = lambda: struct.unpack(args.format, argf.buffer.read(4))[0]
-    put = lambda y: sys.stdout.buffer.write(struct.pack(args.format, y))
+    def get():
+        x = int(next(argf))
+        assert 0 <= x < (1<<32)
+        return x
+    def put(y):
+        print(y)
 
     mt = [untempering(get()) for i in range(N)]
     while True:
