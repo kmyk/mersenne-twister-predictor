@@ -16,7 +16,7 @@ Give the 624 32-bit integers, as unsigned decimal integers, line by line.
     806921074
     790218357
 
-    $ cat data.txt | python 3 predict.py > predicted.txt
+    $ cat data.txt | python3 predict.py > predicted.txt
 ```
 
 ## example
