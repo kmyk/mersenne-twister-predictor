@@ -63,7 +63,7 @@ Take the 624 consecutive numbers.  We will predict the rest, 376 numbers.
 ``` sh
     $ head -n 624 data.txt > known.txt
 
-    $ tail -n data.txt > answer.txt
+    $ tail -n 376 data.txt > answer.txt
 
     $ wc known.txt
      624  624 6696 known.txt
