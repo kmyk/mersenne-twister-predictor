@@ -1,5 +1,8 @@
 # Mersenne Twister Predictor
 
+[![](https://img.shields.io/travis/kmyk/mersenne-twister-predictor.svg)](https://travis-ci.org/kmyk/mersenne-twister-predictor)
+[![](https://img.shields.io/pypi/v/mersenne-twister-predictor.svg)](https://pypi.python.org/pypi/mersenne-twister-predictor)
+
 Predict MT19937 PRNG, from preceding 624 generated numbers.
 
 ## usage
