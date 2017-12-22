@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+import argparse
+import mt19937predictor
+import sys
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path', nargs='?')
+    args = parser.parse_args()
+
+    if args.path is None:
+        argf = sys.stdin
+    else:
+        argf = open(args.path)
+
+    predictor = mt19937predictor.MT19937Predictor()
+
+    for _ in range(mt19937predictor.N):
+        predictor.setrand_int32(int(next(argf)))
+    while True:
+        print(predictor.genrand_int32())
+
+if __name__ == '__main__':
+    main()

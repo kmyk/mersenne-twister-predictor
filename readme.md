@@ -4,82 +4,94 @@ Predict MT19937 PRNG, from preceding 624 generated numbers.
 
 ## usage
 
+### install
+
+``` sh
+$ pip3 install mersenne-twister-predictor
+```
+
+### as a library
+
+For the documentation, see `mt19937predictor.py` and `tests/random.py`.
+
+### as a command
+
 Give the 624 32-bit integers, as unsigned decimal integers, line by line.
 
 ``` sh
-    $ wc data.txt
-     624  624 6696 data.txt
+$ wc data.txt
+ 624  624 6696 data.txt
 
-    $ head -n 4 data.txt
-    734947730
-    363401994
-    806921074
-    790218357
+$ head -n 4 data.txt
+734947730
+363401994
+806921074
+790218357
 
-    $ cat data.txt | python3 predict.py > predicted.txt
+$ cat data.txt | mt19937predict > predicted.txt
 ```
 
-## example
+## example (same as `tests/cplusplus.py`)
 
 This is an example of a pseudorandom number generator using the Mersenne Twister.
 
 ``` c++
-    // generator.cpp
-    #include <iostream>
-    #include <random>
-    using namespace std;
-    int main() {
-        random_device seed_gen;
-        mt19937 mt(seed_gen());
-        for (int i = 0; i < 1000; ++i) {
-            cout << mt() << endl;
-        }
-        return 0;
+// generator.cpp
+#include <iostream>
+#include <random>
+using namespace std;
+int main() {
+    random_device seed_gen;
+    mt19937 mt(seed_gen());
+    for (int i = 0; i < 1000; ++i) {
+        cout << mt() << endl;
     }
+    return 0;
+}
 ```
 
 Compile it and let it generate 1000 numbers.
 
 ``` sh
-    $ g++ -std=c++11 generator.cpp
+$ g++ -std=c++11 generator.cpp
 
-    $ ./a.out > data.txt
+$ ./a.out > data.txt
 
-    $ head data.txt
-    734947730
-    363401994
-    806921074
-    790218357
-    1766244801
-    680628322
-    1972477509
-    4015123394
-    2848130362
-    3481789813
+$ head data.txt
+734947730
+363401994
+806921074
+790218357
+1766244801
+680628322
+1972477509
+4015123394
+2848130362
+3481789813
 ```
 
 Take the 624 consecutive numbers.  We will predict the rest, 376 numbers.
 
 ``` sh
-    $ head -n 624 data.txt > known.txt
+$ head -n 624 data.txt > known.txt
 
-    $ tail -n 376 data.txt > answer.txt
+$ tail -n 376 data.txt > correct.txt
 
-    $ wc known.txt
-     624  624 6696 known.txt
+$ wc known.txt
+ 624  624 6696 known.txt
 ```
 
 Predict.
 
 ``` sh
-    $ cat known.txt | python3 predict.py | head -n 376 > predicted.txt
+$ cat known.txt | mt19937predict | head -n 376 > predicted.txt
 ```
 
 Compare the predict numbers and the original ones.
 If `diff` outputs nothing, it means the prediction was succeeded.
 
 ``` sh
-    $ diff predicted.txt answer.txt
+$ diff predicted.txt correct.txt
 ```
 
 ## reference
