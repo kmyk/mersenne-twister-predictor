@@ -2,6 +2,9 @@
 import argparse
 import mt19937predictor
 import sys
+from signal import signal, SIGPIPE, SIG_DFL
+
+signal(SIGPIPE, SIG_DFL)
 
 def main():
     parser = argparse.ArgumentParser()
