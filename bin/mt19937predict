@@ -2,6 +2,7 @@
 import argparse
 import mt19937predictor
 import sys
+import contextlib
 
 def main():
     parser = argparse.ArgumentParser()
@@ -17,8 +18,9 @@ def main():
 
     for _ in range(mt19937predictor.N):
         predictor.setrand_int32(int(next(argf)))
-    while True:
-        print(predictor.genrand_int32())
+    with contextlib.suppress(BrokenPipeError):
+        while True:
+            print(predictor.genrand_int32())
 
 if __name__ == '__main__':
     main()
