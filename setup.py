@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='mersenne-twister-predictor',
-    version='0.0.2',
+    version='0.0.3',
     description='predicts outputs of Mersenne Twister (MT19937), a pseudorandom number generator',
     install_requires=[],
     author='Kimiyuki Onaka',
