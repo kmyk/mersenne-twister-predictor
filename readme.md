@@ -18,7 +18,23 @@ $ pip3 install mersenne-twister-predictor
 
 ### as a library
 
-For the documentation, see `mt19937predictor.py` and `tests/random.py`.
+This library has the special feature for CPython's standard `random`.
+Try below one:
+
+``` python
+import random
+from mt19937predictor import MT19937Predictor
+
+predictor = MT19937Predictor()
+for _ in range(624):
+    x = random.getrandbits(32)
+    predictor.setrandbits(x, 32)
+
+assert random.getrandbits(32) == predictor.getrandbits(32)
+```
+
+This is useful for some CTF tasks, e.g. [TokyoWesterns CTF 4th 2018: mixed cipher](https://ctftime.org/task/6514), [Tokyo Westerns CTF 3rd: 2017](https://ctftime.org/task/4546), etc.
+For more details, see `mt19937predictor.py` and `tests/random.py`.
 
 ### as a command
 
