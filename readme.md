@@ -34,7 +34,7 @@ assert random.getrandbits(32) == predictor.getrandbits(32)
 ```
 
 This is useful for some CTF tasks, e.g. [TokyoWesterns CTF 4th 2018: mixed cipher](https://ctftime.org/task/6514), [Tokyo Westerns CTF 3rd: 2017](https://ctftime.org/task/4546), etc.
-For more details, see `mt19937predictor.py` and `tests/random.py`.
+For more details, see `mt19937predictor.py` and `tests/random_py.py`.
 
 ### as a command
 
