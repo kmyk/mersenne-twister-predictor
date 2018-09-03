@@ -2,7 +2,10 @@ import unittest
 
 from mt19937predictor import tempering, untempering
 import os
-import shlex
+try:
+    from shlex import quote as shlex_quote
+except ImportError:
+    from pipes import quote as shlex_quote  # for Python 2
 import shutil
 import tempfile
 
@@ -41,5 +44,5 @@ class CPlusPlusTest(unittest.TestCase):
         self.system('./a.out | head -n 1000 > data.txt')
         self.system('head -n 624 data.txt > known.txt')
         self.system('tail -n 376 data.txt > correct.txt')
-        self.system(shlex.quote(self.original_dir + '/bin/mt19937predict') + ' known.txt | head -n 376 > predicted.txt')  # this uses an installed script in system
+        self.system(shlex_quote(self.original_dir + '/bin/mt19937predict') + ' known.txt | head -n 376 > predicted.txt')  # this uses an installed script in system
         self.system('diff predicted.txt correct.txt')

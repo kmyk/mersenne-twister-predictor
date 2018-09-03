@@ -1,5 +1,18 @@
 # Python Version: 3.x
 import random
+import sys
+
+# compatibility
+if sys.version_info[0] == 2:
+    def _to_bytes(n, length, byteorder):
+        assert byteorder == 'little'
+        return ('%x' % n).zfill(length * 2).decode('hex')[: : -1]
+    def _from_bytes(s, byteorder):
+        assert byteorder == 'little'
+        return int(str(s[: : -1]).encode('hex'), 16)
+else:
+    _to_bytes = lambda n, *args, **kwargs: n.to_bytes(*args, **kwargs)
+    _from_bytes = lambda *args, **kwargs: int.from_bytes(*args, **kwargs)
 
 N = 624
 M = 397
@@ -78,9 +91,9 @@ class MT19937Predictor(random.Random):
                 r = self.genrand_int32()
                 if bits < 32:
                     r >>= 32 - bits
-                acc += r.to_bytes(4, byteorder='little')
+                acc += _to_bytes(r, 4, byteorder='little')
                 bits -= 32
-            return int.from_bytes(acc, byteorder='little')
+            return _from_bytes(acc, byteorder='little')
 
     def random(self):
         '''The interface for random.Random.random in Python's Standard Library

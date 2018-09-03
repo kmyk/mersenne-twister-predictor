@@ -13,7 +13,7 @@ Predict MT19937 PRNG, from preceding 624 generated numbers.
 ### install
 
 ``` sh
-$ pip3 install mersenne-twister-predictor
+$ pip install mersenne-twister-predictor
 ```
 
 ### as a library
