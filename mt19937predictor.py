@@ -1,4 +1,3 @@
-# Python Version: 3.x
 import random
 import sys
 
@@ -14,11 +13,11 @@ else:
     _to_bytes = lambda n, *args, **kwargs: n.to_bytes(*args, **kwargs)
     _from_bytes = lambda *args, **kwargs: int.from_bytes(*args, **kwargs)
 
-N = 624
-M = 397
-MATRIX_A   = 0x9908b0df
-UPPER_MASK = 0x80000000
-LOWER_MASK = 0x7fffffff
+N = 624  #: 624 values (of 32bit) is just enough to reconstruct the internal state
+M = 397  #:
+MATRIX_A   = 0x9908b0df  #:
+UPPER_MASK = 0x80000000  #:
+LOWER_MASK = 0x7fffffff  #:
 
 def tempering(y):
     y ^= (y >> 11)
@@ -47,6 +46,29 @@ def genrand_int32(mt, mti):
 
 
 class MT19937Predictor(random.Random):
+    '''
+    Usage:
+
+    .. doctest::
+
+        >>> import random
+        >>> from mt19937predictor import MT19937Predictor
+        >>> predictor = MT19937Predictor()
+        >>> for _ in range(624):
+        ...     x = random.getrandbits(32)
+        ...     predictor.setrandbits(x, 32)
+        >>> random.getrandbits(32) == predictor.getrandbits(32)
+        True
+        >>> random.random() == predictor.random()
+        True
+        >>> a = list(range(100))
+        >>> b = list(range(100))
+        >>> random.shuffle(a)
+        >>> predictor.shuffle(b)
+        >>> a == b
+        True
+    '''
+
     def __init__(self):
         self._mt = [ 0 ] * N
         self._mti = 0
@@ -64,7 +86,7 @@ class MT19937Predictor(random.Random):
         return y
 
     def setrandbits(self, y, bits):
-        '''The interface for random.Random.getrandbits in Python's Standard Library
+        '''The interface for :py:meth:`random.Random.getrandbits` in Python's Standard Library
         '''
         if not (bits % 32 == 0):
             raise ValueError('number of bits must be a multiple of 32')
@@ -79,7 +101,7 @@ class MT19937Predictor(random.Random):
                 bits -= 32
 
     def getrandbits(self, bits):
-        '''The interface for random.Random.getrandbits in Python's Standard Library
+        '''The interface for :py:meth:`random.Random.getrandbits` in Python's Standard Library
         '''
         if not (bits > 0):
             raise ValueError('number of bits must be greater than zero')
@@ -96,17 +118,36 @@ class MT19937Predictor(random.Random):
             return _from_bytes(acc, byteorder='little')
 
     def random(self):
-        '''The interface for random.Random.random in Python's Standard Library
+        '''The interface for :py:meth:`random.Random.random` in Python's Standard Library
         '''
         a = self.genrand_int32() >> 5
         b = self.genrand_int32() >> 6
         return ((a * 67108864.0 + b) * (1.0 / 9007199254740992.0))
 
     def seed(self, *args):
+        '''
+        Raises:
+            :py:exc:`NotImplementedError`
+        '''
         raise NotImplementedError
 
     def setstate(self, *args):
+        '''
+        Raises:
+            :py:exc:`NotImplementedError`
+        '''
         raise NotImplementedError
 
     def getstate(self, *args):
+        '''
+        Raises:
+            :py:exc:`NotImplementedError`
+        '''
+        raise NotImplementedError
+
+    def gauss(self, *args):
+        '''
+        Raises:
+            :py:exc:`NotImplementedError`
+        '''
         raise NotImplementedError
