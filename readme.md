@@ -7,7 +7,7 @@
 [![PyPI](https://img.shields.io/pypi/v/mersenne-twister-predictor.svg)](https://pypi.python.org/pypi/mersenne-twister-predictor)
 [![Documentation Status](https://readthedocs.org/projects/mersenne-twister-predictor/badge/?version=latest)](https://mersenne-twister-predictor.readthedocs.io/en/latest/?badge=latest)
 
-Predict MT19937 PRNG, from preceding 624 generated numbers.
+Predict MT19937 PRNG, from preceding 624 generated numbers. There is a specialization for the "random" of Python standard library.
 
 ## usage
 
@@ -54,7 +54,7 @@ $ head -n 4 data.txt
 $ cat data.txt | mt19937predict > predicted.txt
 ```
 
-## example (same as `tests/cplusplus.py`)
+#### example (same as `tests/cplusplus.py`)
 
 This is an example of a pseudorandom number generator using the Mersenne Twister.
 
