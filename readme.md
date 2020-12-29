@@ -122,5 +122,5 @@ $ diff predicted.txt correct.txt
 thanks to
 
 -   <http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html>
--   <http://homepage1.nifty.com/herumi/diary/1505.html#18>
--   <http://d.hatena.ne.jp/oupo/20141016/>
+-   <http://herumi.in.coocan.jp/diary/1505.html#18>
+-   <https://oupo.hatenadiary.com/entries/2014/10/16>
